@@ -1,0 +1,26 @@
+--- !!perl/hash:LCFG::Build::PkgSpec 
+abstract: Tools for generating new LCFG projects
+author: 
+  - Stephen Quinney <squinney@inf.ed.ac.uk>
+base: ''
+build: 
+  gencmake: 0
+  remove_input_after_translate: 1
+  translate_before_pack: 1
+date: 09/10/08 15:19:24
+license: GPLv2
+name: LCFG-Build-Skeleton
+platforms: 
+  - FedoraCore5
+  - Fedora6
+  - ScientificLinux5
+release: 1
+schema: 1
+translate: 
+  - "*.in"
+vcs: 
+  checkcommitted: 1
+  genchangelog: 1
+  logname: ChangeLog
+  type: CVS
+version: 0.0.4

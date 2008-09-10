@@ -1,0 +1,39 @@
+2008-09-10  CVS: new release
+
+	* Release: 0.0.4
+
+2008-09-10 15:19  squinney
+
+	* Lots of improvements to the documentation. Some code tidying to
+	  satisfy perltidy and perlcritic.
+
+2008-09-08 11:47  squinney
+
+	* Fixed various conditional sections in the specfile template
+
+2008-09-04 12:47  squinney
+
+	* Release: 0.0.3
+
+2008-09-04 12:47  squinney
+
+	* Fully converted module to using Module::Build
+
+2008-09-04 10:42  squinney
+
+	* Release: 0.0.2
+
+2008-09-04 10:40  squinney
+
+	* Copied over various files from the original project tree. Also
+	  converted to using the perl Module::Build system to make it the
+	  same as the other LCFG build tool modules.
+
+2008-09-04 10:08  squinney
+
+	* Created with lcfg-skeleton
+
+2008-09-04 10:08  squinney
+
+	* Initial revision
+

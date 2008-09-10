@@ -1,0 +1,30 @@
+=head1 NAME
+
+@LCFG_NAME@ - @LCFG_ABSTRACT@
+
+=head1 DESCRIPTION
+
+%%%TBD%%%
+
+=head1 RESOURCES
+
+=over 4
+
+=item B< %%%TBD%%% >
+
+%%%TBD%%%
+
+=back
+
+=head1 PLATFORMS
+
+@LCFG_PLATFORMS@
+
+=head1 AUTHOR
+
+@LCFG_AUTHOR@
+
+=head1 LICENSE
+
+This software is distributed under the @LCFG_LICENSE@ license.
+
