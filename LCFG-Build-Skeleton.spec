@@ -1,11 +1,11 @@
 Name:           perl-LCFG-Build-Skeleton
 Summary:        Tools for generating new LCFG projects
-Version:        0.0.4
+Version:        0.0.5
 Release:        1
 Packager:       Stephen Quinney <squinney@inf.ed.ac.uk>
 License:        GPLv2
 Group:          LCFG/Development
-Source:         LCFG-Build-Skeleton-0.0.4.tar.gz
+Source:         LCFG-Build-Skeleton-0.0.5.tar.gz
 BuildArch:	noarch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:  perl(Module::Build)
@@ -57,7 +57,13 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Wed Sep 10 2008 <<<< Release: 0.0.4 >>>>
+* Wed Sep 10 2008 <<<< Release: 0.0.5 >>>>
+
+* Wed Sep 10 2008 19:31 squinney
+- Modified META.yml to attempt to avoid pause wrongly indexing
+  template files
+
+* Wed Sep 10 2008 15:19 squinney
 
 * Wed Sep 10 2008 15:19 squinney
 - Lots of improvements to the documentation. Some code tidying to

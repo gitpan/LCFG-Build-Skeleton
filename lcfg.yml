@@ -7,7 +7,7 @@ build:
   gencmake: 0
   remove_input_after_translate: 1
   translate_before_pack: 1
-date: 09/10/08 15:19:24
+date: 09/10/08 19:34:27
 license: GPLv2
 name: LCFG-Build-Skeleton
 platforms: 
@@ -19,8 +19,7 @@ schema: 1
 translate: 
   - "*.in"
 vcs: 
-  checkcommitted: 1
   genchangelog: 1
   logname: ChangeLog
   type: CVS
-version: 0.0.4
+version: 0.0.5

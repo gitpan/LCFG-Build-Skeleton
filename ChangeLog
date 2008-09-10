@@ -1,5 +1,14 @@
 2008-09-10  CVS: new release
 
+	* Release: 0.0.5
+
+2008-09-10 19:31  squinney
+
+	* Modified META.yml to attempt to avoid pause wrongly indexing
+	  template files
+
+2008-09-10 15:19  squinney
+
 	* Release: 0.0.4
 
 2008-09-10 15:19  squinney
