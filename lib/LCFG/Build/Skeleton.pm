@@ -2,16 +2,17 @@ package LCFG::Build::Skeleton;    # -*-cperl-*-
 use strict;
 use warnings;
 
-# $Id: Skeleton.pm.in,v 1.3 2008/09/10 14:19:03 squinney Exp $
+# $Id: Skeleton.pm.in,v 1.4 2008/09/11 19:06:03 squinney Exp $
 # $Source: /disk/cvs/dice/LCFG-Build-Skeleton/lib/LCFG/Build/Skeleton.pm.in,v $
-# $Revision: 1.3 $
+# $Revision: 1.4 $
 # $HeadURL$
-# $Date: 2008/09/10 14:19:03 $
+# $Date: 2008/09/11 19:06:03 $
 
-our $VERSION = '0.0.6';
+our $VERSION = '0.0.7';
 
 use File::Basename ();
 use File::Path     ();
+use File::Spec     ();
 use LCFG::Build::PkgSpec ();
 use List::MoreUtils qw(none);
 use Sys::Hostname ();
@@ -40,7 +41,8 @@ MooseX::Getopt::OptionTypeMap->add_option_type_to_map(
 has 'configfile' => (
     is        => 'ro',
     isa       => 'Str',
-    default   => sub { join q{/}, $ENV{HOME}, '.lcfg/skeleton/defaults.yml' },
+    default   => sub { File::Spec->catfile( $ENV{HOME}, '.lcfg',
+                                            'skeleton', 'defaults.yml' ) },
     predicate => 'has_configfile',
     documentation => 'Where defaults should be stored',
 );
@@ -48,7 +50,8 @@ has 'configfile' => (
 has 'tmpldir' => (
     is      => 'ro',
     isa     => 'Str',
-    default => sub { join q{/}, $ENV{HOME}, '.lcfg/skeleton/templates' },
+    default => sub { File::Spec->catdir( $ENV{HOME}, '.lcfg',
+                                         'skeleton', 'templates' ) },
     documentation => 'Local templates directory',
 );
 
@@ -414,7 +417,9 @@ sub create_package {
     }
     print "Created directory $dirname\n";
 
-    $pkgspec->save_metafile("$dirname/lcfg.yml");
+    my $new_metafile = File::Spec->catfile( $dirname, 'lcfg.yml' );
+    $pkgspec->metafile($new_metafile);
+    $pkgspec->save_metafile();
 
     print "Stored LCFG build metadata\n";
 
@@ -458,7 +463,7 @@ sub create_package {
     for my $file ( keys %files ) {
 
         my $template = $files{$file};
-        my $output   = "$dirname/$file";
+        my $output   = File::Spec->catfile( $dirname, $file );
 
         print "Generating $output\n";
         $tt->process(
@@ -471,11 +476,13 @@ sub create_package {
     }
 
     for my $exe (@exefiles) {
-        chmod 0755, "$dirname/$exe";
+        my $path = File::Spec->catfile( $dirname, $exe );
+        chmod 0755, $path;
     }
 
     if ( $self->lang eq 'perl' ) {
-        mkdir "$dirname/t";
+        my $testdir = File::Spec->catdir( $dirname, 't' );
+        mkdir $testdir;
     }
 
     eval {
@@ -498,7 +505,7 @@ sub create_package {
             File::Path::rmtree($dirname);
         }
 
-        $vcs->checkout_project( $pkgspec->version, q{.} );
+        $vcs->checkout_project();
     };
 
     if ($@) {
@@ -519,7 +526,7 @@ __END__
 
 =head1 VERSION
 
-    This documentation refers to LCFG::Build::Skeleton version 0.0.6
+    This documentation refers to LCFG::Build::Skeleton version 0.0.7
 
 =head1 SYNOPSIS
 
@@ -729,6 +736,10 @@ skeleton project.
 
 The following LCFG Build Tools modules are also required:
 L<LCFG::Build::PkgSpec>(3), L<LCFG::Build::VCS>(3) and VCS helper modules.
+
+=head1 SEE ALSO
+
+L<LCFG::Build::Tools>, lcfg-skeleton(1), lcfg-reltool(1)
 
 =head1 PLATFORMS
 

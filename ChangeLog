@@ -1,5 +1,22 @@
 2008-09-11  CVS: new release
 
+	* Release: 0.0.7
+
+2008-09-11 20:06  squinney
+
+	* Modified some file path handling to use File::Spec
+
+2008-09-11 16:23  squinney
+
+	* Added a really basic test to see that the Skeleton module
+	  actually loads
+
+2008-09-11 16:21  squinney
+
+	* Added missing comma in Makefile.PL dependency list
+
+2008-09-11 10:20  squinney
+
 	* Release: 0.0.6
 
 2008-09-11 10:20  squinney

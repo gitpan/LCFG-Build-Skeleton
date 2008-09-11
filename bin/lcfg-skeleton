@@ -2,13 +2,13 @@
 use strict;
 use warnings;
 
-# $Id: lcfg-skeleton.in,v 1.2 2008/09/10 14:19:03 squinney Exp $
+# $Id: lcfg-skeleton.in,v 1.3 2008/09/11 19:06:03 squinney Exp $
 # $Source: /disk/cvs/dice/LCFG-Build-Skeleton/bin/lcfg-skeleton.in,v $
-# $Revision: 1.2 $
+# $Revision: 1.3 $
 # $HeadURL$
-# $Date: 2008/09/10 14:19:03 $
+# $Date: 2008/09/11 19:06:03 $
 
-our $VERSION = '0.0.6';
+our $VERSION = '0.0.7';
 
 use LCFG::Build::Skeleton;
 
@@ -31,7 +31,7 @@ __END__
 
 =head1 VERSION
 
-This documentation refers to lcfg-skeleton version 0.0.6
+This documentation refers to lcfg-skeleton version 0.0.7
 
 =head1 USAGE
 
@@ -124,7 +124,8 @@ component.
 
 Which revision-control system you intend to use for the
 project. Currently only "CVS" and "None" are supported. You will need
-the relevant LCFG::Build::VCS helper module installed for this to work.
+the relevant L<LCFG::Build::VCS> helper module installed for this to
+work.
 
 =item platforms
 
@@ -191,12 +192,12 @@ are normally stored in C</usr/share/lcfgbuild/templates>.
 =head1 CONFIGURATION
 
 If the new component is to be added automatically to the CVS, then the
-CVSROOT and CVS_RSH must be set correctly before running
+C<CVSROOT> and C<CVS_RSH> must be set correctly before running
 B<lcfg-skeleton>.
 
 By default the script assumes that the standard template directory is
 C</usr/share/lcfgbuild/templates>. You can override this using the
-LCFG_BUILD_TMPLDIR environment variable. If you have done a local
+C<LCFG_BUILD_TMPLDIR> environment variable. If you have done a local
 (i.e. non-root) install of this module then this will almost certainly
 be necessary.
 
@@ -213,13 +214,17 @@ with code zero. An error will result in a non-zero error code.
 
 =head1 DEPENDENCIES
 
-This script uses LCFG::Build::Skeleton which is L<Moose> powered. That
-module also requires L<MooseX::Getopt> for command-line option
-handling. This module is part of the LCFG build tools suite and as
-such requires L<LCFG::Build::Pkgspec> and L<LCFG::Build::VCS>. It uses
-the perl Template Toolkit to generate new projects. The defaults file
-is parsed and stored using L<YAML::Syck>. You will also need the
+This script uses L<LCFG::Build::Skeleton> which is L<Moose>
+powered. That module also requires L<MooseX::Getopt> for command-line
+option handling. This module is part of the LCFG build tools suite and
+as such requires L<LCFG::Build::Pkgspec> and L<LCFG::Build::VCS>. It
+uses the perl Template Toolkit to generate new projects. The defaults
+file is parsed and stored using L<YAML::Syck>. You will also need the
 L<List::MoreUtils> and L<UNIVERSAL::require> modules.
+
+=head1 SEE ALSO
+
+L<LCFG::Build::Tools>, lcfg-reltool(1)
 
 =head1 PLATFORMS
 

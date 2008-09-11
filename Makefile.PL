@@ -13,7 +13,7 @@ WriteMakefile
                            'LCFG::Build::PkgSpec' => '0.0.23',
                            'LCFG::Build::VCS'     => '0.0.20',
                            'List::MoreUtils'      => '0',
-                           'Moose'                => '0.57'
+                           'Moose'                => '0.57',
                            'MooseX::Getopt'       => '0.13',
                            'Template'             => '2.14',
                            'Test::More'           => '0',
