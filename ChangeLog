@@ -1,4 +1,12 @@
-2008-09-10  CVS: new release
+2008-09-11  CVS: new release
+
+	* Release: 0.0.6
+
+2008-09-11 10:20  squinney
+
+	* Fixed error in META.yml which upsets the pause indexer
+
+2008-09-10 19:34  squinney
 
 	* Release: 0.0.5
 

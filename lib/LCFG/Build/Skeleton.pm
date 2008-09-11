@@ -8,7 +8,7 @@ use warnings;
 # $HeadURL$
 # $Date: 2008/09/10 14:19:03 $
 
-our $VERSION = '0.0.5';
+our $VERSION = '0.0.6';
 
 use File::Basename ();
 use File::Path     ();
@@ -519,7 +519,7 @@ __END__
 
 =head1 VERSION
 
-    This documentation refers to LCFG::Build::Skeleton version 0.0.5
+    This documentation refers to LCFG::Build::Skeleton version 0.0.6
 
 =head1 SYNOPSIS
 

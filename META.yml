@@ -1,6 +1,6 @@
 ---
-name: LCFG-Build-Skeleton
-version: 0.0.5
+name: 'LCFG-Build-Skeleton'
+version: '0.0.6'
 author:
   - 'Stephen Quinney <squinney@inf.ed.ac.uk>'
 abstract: Tools for generating new LCFG projects
@@ -22,10 +22,10 @@ build_requires:
 provides:
   LCFG::Build::Skeleton:
     file: lib/LCFG/Build/Skeleton.pm
-    version: 0.0.5
+    version: '0.0.6'
 no_index:
   dir:
-  - templates
+    - templates
 generated_by: Module::Build version 0.2807
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.2.html
