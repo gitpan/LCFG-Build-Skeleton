@@ -1,4 +1,14 @@
-2008-09-11  CVS: new release
+2008-09-12  CVS: new release
+
+	* Release: 0.0.8
+
+2008-09-12 11:39  squinney
+
+	* Fixed bug with setting the list of questions. Renamed 'rcs'
+	  attribute to 'vcs' to be consistent with how it is named in the
+	  rest of the build tools
+
+2008-09-11 20:06  squinney
 
 	* Release: 0.0.7
 

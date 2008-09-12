@@ -1,11 +1,11 @@
 Name:           perl-LCFG-Build-Skeleton
 Summary:        Tools for generating new LCFG projects
-Version:        0.0.7
+Version:        0.0.8
 Release:        1
 Packager:       Stephen Quinney <squinney@inf.ed.ac.uk>
 License:        GPLv2
 Group:          LCFG/Development
-Source:         LCFG-Build-Skeleton-0.0.7.tar.gz
+Source:         LCFG-Build-Skeleton-0.0.8.tar.gz
 BuildArch:	noarch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:  perl(Module::Build)
@@ -57,7 +57,14 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Thu Sep 11 2008 <<<< Release: 0.0.7 >>>>
+* Fri Sep 12 2008 <<<< Release: 0.0.8 >>>>
+
+* Fri Sep 12 2008 11:39 squinney
+- Fixed bug with setting the list of questions. Renamed 'rcs'
+  attribute to 'vcs' to be consistent with how it is named in the
+  rest of the build tools
+
+* Thu Sep 11 2008 20:06 squinney
 
 * Thu Sep 11 2008 20:06 squinney
 - Modified some file path handling to use File::Spec

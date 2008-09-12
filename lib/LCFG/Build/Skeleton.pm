@@ -2,13 +2,13 @@ package LCFG::Build::Skeleton;    # -*-cperl-*-
 use strict;
 use warnings;
 
-# $Id: Skeleton.pm.in,v 1.4 2008/09/11 19:06:03 squinney Exp $
+# $Id: Skeleton.pm.in,v 1.5 2008/09/12 10:39:15 squinney Exp $
 # $Source: /disk/cvs/dice/LCFG-Build-Skeleton/lib/LCFG/Build/Skeleton.pm.in,v $
-# $Revision: 1.4 $
+# $Revision: 1.5 $
 # $HeadURL$
-# $Date: 2008/09/11 19:06:03 $
+# $Date: 2008/09/12 10:39:15 $
 
-our $VERSION = '0.0.7';
+our $VERSION = '0.0.8';
 
 use File::Basename ();
 use File::Path     ();
@@ -118,10 +118,10 @@ has 'lang' => (
     default       => 'perl',
 );
 
-has 'rcs' => (
+has 'vcs' => (
     is            => 'rw',
     isa           => enum( [qw/CVS None/] ),
-    documentation => 'Revision Control System (CVS/None)',
+    documentation => 'Version Control System (CVS/None)',
     default       => 'CVS',
 );
 
@@ -265,14 +265,14 @@ sub new_with_options {
 
 }
 
-my @questions => qw(
+my @questions = qw(
     name
     lcfg_component
     abstract
     author_name
     author_email
     lang
-    rcs
+    vcs
     platforms
     license
     restart
@@ -389,7 +389,7 @@ sub create_package {
 
     # version control information
 
-    $pkgspec->set_vcsinfo( type => $self->rcs );
+    $pkgspec->set_vcsinfo( type => $self->vcs );
 
     $pkgspec->set_vcsinfo( logname => 'ChangeLog' );
 
@@ -526,7 +526,7 @@ __END__
 
 =head1 VERSION
 
-    This documentation refers to LCFG::Build::Skeleton version 0.0.7
+    This documentation refers to LCFG::Build::Skeleton version 0.0.8
 
 =head1 SYNOPSIS
 
@@ -588,7 +588,7 @@ The language which will be used, this is either "perl" or
 "shell". This only really has an affect if you are creating an LCFG
 component.
 
-=item rcs
+=item vcs
 
 Which revision-control system you intend to use for the
 project. Currently only "CVS" and "None" are supported. You will need
