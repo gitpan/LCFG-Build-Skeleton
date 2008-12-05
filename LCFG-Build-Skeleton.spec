@@ -1,11 +1,11 @@
 Name:           perl-LCFG-Build-Skeleton
 Summary:        Tools for generating new LCFG projects
-Version:        0.0.8
+Version:        0.0.9
 Release:        1
 Packager:       Stephen Quinney <squinney@inf.ed.ac.uk>
 License:        GPLv2
 Group:          LCFG/Development
-Source:         LCFG-Build-Skeleton-0.0.8.tar.gz
+Source:         LCFG-Build-Skeleton-0.0.9.tar.gz
 BuildArch:	noarch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:  perl(Module::Build)
@@ -57,7 +57,13 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Fri Sep 12 2008 <<<< Release: 0.0.8 >>>>
+* Fri Dec 05 2008 <<<< Release: 0.0.9 >>>>
+
+* Fri Dec 05 2008 12:13 squinney
+- Automatically create templates and nagios directories for LCFG
+  components
+
+* Fri Sep 12 2008 11:39 squinney
 
 * Fri Sep 12 2008 11:39 squinney
 - Fixed bug with setting the list of questions. Renamed 'rcs'

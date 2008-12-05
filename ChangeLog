@@ -1,4 +1,13 @@
-2008-09-12  CVS: new release
+2008-12-05  CVS: new release
+
+	* Release: 0.0.9
+
+2008-12-05 12:13  squinney
+
+	* Automatically create templates and nagios directories for LCFG
+	  components
+
+2008-09-12 11:39  squinney
 
 	* Release: 0.0.8
 

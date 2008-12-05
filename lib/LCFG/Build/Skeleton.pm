@@ -2,13 +2,13 @@ package LCFG::Build::Skeleton;    # -*-cperl-*-
 use strict;
 use warnings;
 
-# $Id: Skeleton.pm.in,v 1.5 2008/09/12 10:39:15 squinney Exp $
+# $Id: Skeleton.pm.in,v 1.6 2008/12/05 12:13:58 squinney Exp $
 # $Source: /disk/cvs/dice/LCFG-Build-Skeleton/lib/LCFG/Build/Skeleton.pm.in,v $
-# $Revision: 1.5 $
+# $Revision: 1.6 $
 # $HeadURL$
-# $Date: 2008/09/12 10:39:15 $
+# $Date: 2008/12/05 12:13:58 $
 
-our $VERSION = '0.0.8';
+our $VERSION = '0.0.9';
 
 use File::Basename ();
 use File::Path     ();
@@ -458,6 +458,14 @@ sub create_package {
 
         $files{"$comp.def.cin"} = 'COMPONENT.def.tt';
         $files{"$comp.pod.cin"} = 'COMPONENT.pod.tt';
+
+        my $nagios_dir = File::Spec->catdir( $dirname, 'nagios' );
+        mkdir $nagios_dir
+            or die "Could not create nagios directory, $nagios_dir: $!\n";
+
+        my $templates_dir = File::Spec->catdir( $dirname, 'templates' );
+        mkdir $templates_dir
+            or die "Could not create templates directory, $templates_dir: $!\n";
     }
 
     for my $file ( keys %files ) {
@@ -482,7 +490,8 @@ sub create_package {
 
     if ( $self->lang eq 'perl' ) {
         my $testdir = File::Spec->catdir( $dirname, 't' );
-        mkdir $testdir;
+        mkdir $testdir
+            or die "Could not create tests directory, $testdir: $!\n";
     }
 
     eval {
@@ -526,7 +535,7 @@ __END__
 
 =head1 VERSION
 
-    This documentation refers to LCFG::Build::Skeleton version 0.0.8
+    This documentation refers to LCFG::Build::Skeleton version 0.0.9
 
 =head1 SYNOPSIS
 
