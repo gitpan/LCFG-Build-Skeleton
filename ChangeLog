@@ -1,4 +1,14 @@
-2008-12-05  CVS: new release
+2009-01-06  CVS: new release
+
+	* Release: 0.0.10
+
+2009-01-06 12:09  squinney
+
+	* Added README files for the nagios and templates directories. This
+	  is useful info for new users but also provides files so that "cvs
+	  import" will actually add the directories to the repository.
+
+2008-12-05 12:14  squinney
 
 	* Release: 0.0.9
 

@@ -1,11 +1,11 @@
 Name:           perl-LCFG-Build-Skeleton
 Summary:        Tools for generating new LCFG projects
-Version:        0.0.9
+Version:        0.0.10
 Release:        1
 Packager:       Stephen Quinney <squinney@inf.ed.ac.uk>
 License:        GPLv2
 Group:          LCFG/Development
-Source:         LCFG-Build-Skeleton-0.0.9.tar.gz
+Source:         LCFG-Build-Skeleton-0.0.10.tar.gz
 BuildArch:	noarch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:  perl(Module::Build)
@@ -57,7 +57,14 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Fri Dec 05 2008 <<<< Release: 0.0.9 >>>>
+* Tue Jan 06 2009 <<<< Release: 0.0.10 >>>>
+
+* Tue Jan 06 2009 12:09 squinney
+- Added README files for the nagios and templates directories. This
+  is useful info for new users but also provides files so that "cvs
+  import" will actually add the directories to the repository.
+
+* Fri Dec 05 2008 12:14 squinney
 
 * Fri Dec 05 2008 12:13 squinney
 - Automatically create templates and nagios directories for LCFG

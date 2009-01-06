@@ -2,13 +2,13 @@ package LCFG::Build::Skeleton;    # -*-cperl-*-
 use strict;
 use warnings;
 
-# $Id: Skeleton.pm.in,v 1.6 2008/12/05 12:13:58 squinney Exp $
+# $Id: Skeleton.pm.in,v 1.7 2009/01/06 12:09:06 squinney Exp $
 # $Source: /disk/cvs/dice/LCFG-Build-Skeleton/lib/LCFG/Build/Skeleton.pm.in,v $
-# $Revision: 1.6 $
+# $Revision: 1.7 $
 # $HeadURL$
-# $Date: 2008/12/05 12:13:58 $
+# $Date: 2009/01/06 12:09:06 $
 
-our $VERSION = '0.0.9';
+our $VERSION = '0.0.10';
 
 use File::Basename ();
 use File::Path     ();
@@ -436,11 +436,14 @@ sub create_package {
         }
     ) or die $Template::ERROR;
 
+    # Key is the template filename
+    # Value is the target file path stored as a ref to a list of parts
+
     my %files = (
-        specfile       => 'specfile.tt',
-        ChangeLog      => 'ChangeLog.tt',
-        'README.BUILD' => 'README.BUILD.tt',
-        README         => 'README.tt',
+        'specfile.tt'     => ['specfile'],
+        'ChangeLog.tt'    => ['ChangeLog'],
+        'README.BUILD.tt' => ['README.BUILD'],
+        'README.tt'       => ['README'],
     );
 
     my @exefiles;
@@ -449,29 +452,33 @@ sub create_package {
         my $comp = $pkgspec->name;
 
         if ( $self->lang eq 'perl' ) {
-            $files{"$comp.cin"} = 'COMPONENT.pl.tt';
+            $files{'COMPONENT.pl.tt'} = ["$comp.cin"];
         }
         else {
-            $files{"$comp.cin"} = 'COMPONENT.sh.tt';
+            $files{'COMPONENT.sh.tt'} = ["$comp.cin"];
         }
         push @exefiles, "$comp.cin";
 
-        $files{"$comp.def.cin"} = 'COMPONENT.def.tt';
-        $files{"$comp.pod.cin"} = 'COMPONENT.pod.tt';
+        $files{'COMPONENT.def.tt'} = ["$comp.def.cin"];
+        $files{'COMPONENT.pod.tt'} = ["$comp.pod.cin"];
 
         my $nagios_dir = File::Spec->catdir( $dirname, 'nagios' );
         mkdir $nagios_dir
             or die "Could not create nagios directory, $nagios_dir: $!\n";
 
+        $files{'README.nagios.tt'} = [ 'nagios', 'README' ];
+
         my $templates_dir = File::Spec->catdir( $dirname, 'templates' );
         mkdir $templates_dir
             or die "Could not create templates directory, $templates_dir: $!\n";
+
+        $files{'README.templates.tt'} = [ 'templates', 'README' ];
     }
 
-    for my $file ( keys %files ) {
+    for my $template ( keys %files ) {
 
-        my $template = $files{$file};
-        my $output   = File::Spec->catfile( $dirname, $file );
+        my @file = @{$files{$template}};
+        my $output   = File::Spec->catfile( $dirname, @file );
 
         print "Generating $output\n";
         $tt->process(
@@ -535,7 +542,7 @@ __END__
 
 =head1 VERSION
 
-    This documentation refers to LCFG::Build::Skeleton version 0.0.9
+    This documentation refers to LCFG::Build::Skeleton version 0.0.10
 
 =head1 SYNOPSIS
 
