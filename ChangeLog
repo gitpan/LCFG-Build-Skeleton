@@ -1,4 +1,30 @@
-2009-01-06  CVS: new release
+2009-03-09  CVS: new release
+
+	* Release: 0.0.12
+
+2009-03-09 15:36  squinney
+
+	* Before creating a new project check that a local file/dir with
+	  the required name does not exist. Also use the new API for
+	  import_project() in LCFG::Build::VCS 0.0.26
+
+2009-03-09 15:22  squinney
+
+	* Increased minimum dependency on LCFG::Build::VCS to >= 0.0.26
+
+2009-03-09 12:37  squinney
+
+	* Release: 0.0.11
+
+2009-03-09 12:37  squinney
+
+	* Added support for SVN. Slightly reworked the way in which
+	  projects are created so that it happens in a temporary directory.
+	  Also no longer hardwire the version-control system choice so that
+	  it can be easily changed later. This is all much cleaner and
+	  saner.
+
+2009-01-06 12:09  squinney
 
 	* Release: 0.0.10
 

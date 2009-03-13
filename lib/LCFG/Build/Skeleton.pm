@@ -1,18 +1,19 @@
-package LCFG::Build::Skeleton;    # -*-cperl-*-
+package LCFG::Build::Skeleton;    # -*-perl-*-
 use strict;
 use warnings;
 
-# $Id: Skeleton.pm.in,v 1.7 2009/01/06 12:09:06 squinney Exp $
+# $Id: Skeleton.pm.in,v 1.9 2009/03/09 15:36:49 squinney Exp $
 # $Source: /disk/cvs/dice/LCFG-Build-Skeleton/lib/LCFG/Build/Skeleton.pm.in,v $
-# $Revision: 1.7 $
+# $Revision: 1.9 $
 # $HeadURL$
-# $Date: 2009/01/06 12:09:06 $
+# $Date: 2009/03/09 15:36:49 $
 
-our $VERSION = '0.0.10';
+our $VERSION = '0.0.12';
 
 use File::Basename ();
 use File::Path     ();
 use File::Spec     ();
+use File::Temp     ();
 use LCFG::Build::PkgSpec ();
 use List::MoreUtils qw(none);
 use Sys::Hostname ();
@@ -120,8 +121,8 @@ has 'lang' => (
 
 has 'vcs' => (
     is            => 'rw',
-    isa           => enum( [qw/CVS None/] ),
-    documentation => 'Version Control System (CVS/None)',
+    isa           => enum( [qw/SVN CVS None/] ),
+    documentation => 'Version Control System (SVN/CVS/None)',
     default       => 'CVS',
 );
 
@@ -380,6 +381,11 @@ sub create_package {
         $pkgspec->group('LCFG');
     }
 
+    my $localdir = $pkgspec->fullname;
+    if ( -e $localdir ) {
+        die "There is already a local directory or file named \"$localdir\".\n Please move it aside and try again\n";
+    }
+
     if ( $self->gencmake eq 'yes' ) {
         $pkgspec->set_buildinfo( gencmake => 1 );
     }
@@ -388,8 +394,6 @@ sub create_package {
     }
 
     # version control information
-
-    $pkgspec->set_vcsinfo( type => $self->vcs );
 
     $pkgspec->set_vcsinfo( logname => 'ChangeLog' );
 
@@ -400,24 +404,9 @@ sub create_package {
         $pkgspec->set_vcsinfo( genchangelog => 1 );
     }
 
-    my $dirname = $pkgspec->fullname;
+    my $tempdir = File::Temp::tempdir( CLEANUP => 1 );
 
-    if ( -d $dirname ) {
-        if ( $self->force ) {
-            File::Path::rmtree($dirname);
-        }
-        else {
-            die "The directory $dirname already exists. Please move it out of the way, choose a different name for your project or use the --force option.\n";
-        }
-    }
-
-    eval { File::Path::mkpath($dirname) };
-    if ($@) {
-        die "Failed to create directory, $dirname: $!\n";
-    }
-    print "Created directory $dirname\n";
-
-    my $new_metafile = File::Spec->catfile( $dirname, 'lcfg.yml' );
+    my $new_metafile = File::Spec->catfile( $tempdir, 'lcfg.yml' );
     $pkgspec->metafile($new_metafile);
     $pkgspec->save_metafile();
 
@@ -462,13 +451,13 @@ sub create_package {
         $files{'COMPONENT.def.tt'} = ["$comp.def.cin"];
         $files{'COMPONENT.pod.tt'} = ["$comp.pod.cin"];
 
-        my $nagios_dir = File::Spec->catdir( $dirname, 'nagios' );
+        my $nagios_dir = File::Spec->catdir( $tempdir, 'nagios' );
         mkdir $nagios_dir
             or die "Could not create nagios directory, $nagios_dir: $!\n";
 
         $files{'README.nagios.tt'} = [ 'nagios', 'README' ];
 
-        my $templates_dir = File::Spec->catdir( $dirname, 'templates' );
+        my $templates_dir = File::Spec->catdir( $tempdir, 'templates' );
         mkdir $templates_dir
             or die "Could not create templates directory, $templates_dir: $!\n";
 
@@ -478,7 +467,7 @@ sub create_package {
     for my $template ( keys %files ) {
 
         my @file = @{$files{$template}};
-        my $output   = File::Spec->catfile( $dirname, @file );
+        my $output   = File::Spec->catfile( $tempdir, @file );
 
         print "Generating $output\n";
         $tt->process(
@@ -491,18 +480,18 @@ sub create_package {
     }
 
     for my $exe (@exefiles) {
-        my $path = File::Spec->catfile( $dirname, $exe );
+        my $path = File::Spec->catfile( $tempdir, $exe );
         chmod 0755, $path;
     }
 
     if ( $self->lang eq 'perl' ) {
-        my $testdir = File::Spec->catdir( $dirname, 't' );
+        my $testdir = File::Spec->catdir( $tempdir, 't' );
         mkdir $testdir
             or die "Could not create tests directory, $testdir: $!\n";
     }
 
     eval {
-        my $vcsmodule = 'LCFG::Build::VCS::' . $pkgspec->get_vcsinfo('type');
+        my $vcsmodule = 'LCFG::Build::VCS::' . $self->vcs;
 
         $vcsmodule->require or die $@;
 
@@ -510,22 +499,17 @@ sub create_package {
             quiet   => 0,
             dryrun  => 0,
             module  => $pkgspec->fullname,
-            workdir => $dirname,
         );
 
-        $vcs->import_project( $pkgspec->version,
+        $vcs->import_project( $tempdir, $pkgspec->version,
             'Created with lcfg-skeleton' );
 
-        # icky but apparently unavoidable
-        if ( $pkgspec->get_vcsinfo('type') eq 'CVS' ) {
-            File::Path::rmtree($dirname);
-        }
-
         $vcs->checkout_project();
+
     };
 
     if ($@) {
-        die "Failed to import project to your chosen version-control system\n";
+        die "Failed to import project to your chosen version-control system:\n $@\n";
     }
 
     print "Successfully imported your project into your version-control system.\n";
@@ -542,7 +526,7 @@ __END__
 
 =head1 VERSION
 
-    This documentation refers to LCFG::Build::Skeleton version 0.0.10
+    This documentation refers to LCFG::Build::Skeleton version 0.0.12
 
 =head1 SYNOPSIS
 

@@ -1,16 +1,16 @@
 Name:           perl-LCFG-Build-Skeleton
 Summary:        Tools for generating new LCFG projects
-Version:        0.0.10
+Version:        0.0.12
 Release:        1
 Packager:       Stephen Quinney <squinney@inf.ed.ac.uk>
 License:        GPLv2
 Group:          LCFG/Development
-Source:         LCFG-Build-Skeleton-0.0.10.tar.gz
+Source:         LCFG-Build-Skeleton-0.0.12.tar.gz
 BuildArch:	noarch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:  perl(Module::Build)
 Requires:	perl(LCFG::Build::PkgSpec) >= 0.0.23
-Requires:	perl(LCFG::Build::VCS) >= 0.0.20
+Requires:	perl(LCFG::Build::VCS) >= 0.0.26
 Requires:	perl(Moose) >= 0.57
 Requires:	perl(MooseX::Getopt) >= 0.13
 Requires:       perl(Template) >= 2.14
@@ -57,7 +57,26 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Tue Jan 06 2009 <<<< Release: 0.0.10 >>>>
+* Mon Mar 09 2009 <<<< Release: 0.0.12 >>>>
+
+* Mon Mar 09 2009 15:36 squinney
+- Before creating a new project check that a local file/dir with
+  the required name does not exist. Also use the new API for
+  import_project() in LCFG::Build::VCS 0.0.26
+
+* Mon Mar 09 2009 15:22 squinney
+- Increased minimum dependency on LCFG::Build::VCS to >= 0.0.26
+
+* Mon Mar 09 2009 12:37 squinney
+
+* Mon Mar 09 2009 12:37 squinney
+- Added support for SVN. Slightly reworked the way in which
+  projects are created so that it happens in a temporary directory.
+  Also no longer hardwire the version-control system choice so that
+  it can be easily changed later. This is all much cleaner and
+  saner.
+
+* Tue Jan 06 2009 12:09 squinney
 
 * Tue Jan 06 2009 12:09 squinney
 - Added README files for the nagios and templates directories. This
