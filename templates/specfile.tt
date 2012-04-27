@@ -10,7 +10,7 @@ BuildArch:	noarch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 [%- IF skel.gencmake == "yes" -%]
-BuildRequires:  cmake >= 2.6.0, /etc/rpm/macros.cmake, lsb, bash
+BuildRequires:  cmake >= 2.6.0, /etc/rpm/macros.cmake, bash
 [% END -%]
 
 [%- IF skel.lcfg_component == "yes" %]
@@ -74,6 +74,7 @@ exit 0
 %doc @LCFGMAN@/man@MANSECT@/*
 %doc @LCFGPOD@/@LCFG_NAME@.pod
 @LCFGCOMP@/@LCFG_NAME@
+@LCFGDATA@/@LCFG_NAME@
 @LCFGCLIENTDEF@/@LCFG_NAME@-@LCFG_SCHEMA@.def
 [% END %]
 

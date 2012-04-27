@@ -2,14 +2,16 @@ package LCFG::Build::Skeleton;    # -*-perl-*-
 use strict;
 use warnings;
 
-# $Id: Skeleton.pm.in,v 1.9 2009/03/09 15:36:49 squinney Exp $
-# $Source: /disk/cvs/dice/LCFG-Build-Skeleton/lib/LCFG/Build/Skeleton.pm.in,v $
-# $Revision: 1.9 $
-# $HeadURL$
-# $Date: 2009/03/09 15:36:49 $
+# $Id: Skeleton.pm.in 15909 2011-02-17 18:00:05Z squinney@INF.ED.AC.UK $
+# $Source: /var/cvs/dice/LCFG-Build-Skeleton/lib/LCFG/Build/Skeleton.pm.in,v $
+# $Revision: 15909 $
+# $HeadURL: https://svn.lcfg.org/svn/source/tags/LCFG-Build-Skeleton/LCFG_Build_Skeleton_0_1_0/lib/LCFG/Build/Skeleton.pm.in $
+# $Date: 2011-02-17 18:00:05 +0000 (Thu, 17 Feb 2011) $
 
-our $VERSION = '0.0.12';
+our $VERSION = '0.1.0';
 
+use Email::Address ();
+use Email::Valid   ();
 use File::Basename ();
 use File::Path     ();
 use File::Spec     ();
@@ -31,7 +33,18 @@ use Moose::Util::TypeConstraints;
 
 with 'MooseX::Getopt';
 
-subtype 'LCFG::Types::Response' => as 'Str';
+subtype 'LCFG::Types::ComponentName'
+  => as 'Str'
+  => where { m/^[A-Za-z][A-Za-z0-9_]+$/ };
+
+subtype 'LCFG::Types::EmailAddress'
+      => as 'Str'
+      => where { Email::Valid->address( -address => $_ ) }
+      => message { "Address ($_) for report must be a valid email address" };
+
+subtype 'LCFG::Types::Response'
+  => as 'Str'
+  => where { $_ eq 'yes' || $_ eq 'no' };
 
 coerce 'LCFG::Types::Response' => from 'Str' =>
     via { $_ && ( $_ eq '1' || m/^ye(s|p|ah)!?$/i ) ? 'yes' : 'no' };
@@ -71,7 +84,7 @@ has 'help' => (
 
 has 'name' => (
     is            => 'rw',
-    isa           => 'Str',
+    isa           => 'LCFG::Types::ComponentName',
     documentation => 'Name of the project',
 );
 
@@ -96,18 +109,24 @@ has 'author_name' => (
 
 has 'author_email' => (
     is            => 'rw',
-    isa           => 'Str',
+    isa           => 'LCFG::Types::EmailAddress',
     builder       => '_default_email',
     documentation => 'Email address for the author',
 );
 
 sub _default_email {
-    my $username = ( getpwuid $< )[0];
 
-    my ( $hostname, @domain ) = split /\./, Sys::Hostname::hostname;
+    my $email;
+    if ( $ENV{EMAIL} ) {
+        $email = $ENV{EMAIL};
+    } else {
+        my $username = ( getpwuid $< )[0];
 
-    my $domain = join q{.}, @domain;
-    my $email = join q{@}, $username, $domain;
+        my ( $hostname, @domain ) = split /\./, Sys::Hostname::hostname;
+
+        my $domain = join q{.}, @domain;
+        $email  = join q{@}, $username, $domain;
+    }
 
     return $email;
 }
@@ -339,8 +358,7 @@ sub query_user {
 
                 if ($@) {
                     print "Error: Bad choice, please try again.\n";
-                }
-                else {
+                } else {
                     last;
                 }
 
@@ -357,18 +375,31 @@ sub query_user {
 sub create_package {
     my ($self) = @_;
 
-    my $author = $self->author_name . ' <' . $self->author_email . '>';
+    # Make an attempt to sanitise whatever the user gave us as an
+    # email address.
+
+    my ($addr) = Email::Address->parse($self->author_email);
+
+    my $new_addr = Email::Address->new( $self->author_name,
+                                        $addr->address );
+    my $author = $new_addr->format;
 
     my @platforms;
     if ( $self->platforms ) {
         @platforms = split /\s*,\s*/, $self->platforms;
     }
 
+    # Sometimes people mistakenly put a 'lcfg-' prefix on the name.
+    my $name = $self->name;
+    if ( $self->lcfg_component eq 'yes' ) {
+      $name =~ s/^lcfg-//;
+    }
+
     my $pkgspec = LCFG::Build::PkgSpec->new(
-        name      => $self->name,
+        name      => $name,
         version   => '0.0.1',
         release   => '1',
-        author    => $author,
+        author    => [$author],
         abstract  => $self->abstract,
         license   => $self->license,
         translate => ['*.cin'],
@@ -526,7 +557,7 @@ __END__
 
 =head1 VERSION
 
-    This documentation refers to LCFG::Build::Skeleton version 0.0.12
+    This documentation refers to LCFG::Build::Skeleton version 0.1.0
 
 =head1 SYNOPSIS
 

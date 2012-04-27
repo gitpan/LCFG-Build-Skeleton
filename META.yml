@@ -1,6 +1,6 @@
 ---
 name: 'LCFG-Build-Skeleton'
-version: '0.0.12'
+version: '0.1.0'
 author:
   - 'Stephen Quinney <squinney@inf.ed.ac.uk>'
 abstract: Tools for generating new LCFG projects
@@ -22,7 +22,7 @@ build_requires:
 provides:
   LCFG::Build::Skeleton:
     file: lib/LCFG/Build/Skeleton.pm
-    version: '0.0.12'
+    version: '0.1.0'
 no_index:
   dir:
     - templates
