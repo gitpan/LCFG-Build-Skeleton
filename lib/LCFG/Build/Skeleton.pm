@@ -5,10 +5,10 @@ use warnings;
 # $Id: Skeleton.pm.in 15909 2011-02-17 18:00:05Z squinney@INF.ED.AC.UK $
 # $Source: /var/cvs/dice/LCFG-Build-Skeleton/lib/LCFG/Build/Skeleton.pm.in,v $
 # $Revision: 15909 $
-# $HeadURL: https://svn.lcfg.org/svn/source/tags/LCFG-Build-Skeleton/LCFG_Build_Skeleton_0_1_0/lib/LCFG/Build/Skeleton.pm.in $
+# $HeadURL: https://svn.lcfg.org/svn/source/tags/LCFG-Build-Skeleton/LCFG_Build_Skeleton_0_3_0/lib/LCFG/Build/Skeleton.pm.in $
 # $Date: 2011-02-17 18:00:05 +0000 (Thu, 17 Feb 2011) $
 
-our $VERSION = '0.1.0';
+our $VERSION = '0.3.0';
 
 use Email::Address ();
 use Email::Valid   ();
@@ -557,7 +557,7 @@ __END__
 
 =head1 VERSION
 
-    This documentation refers to LCFG::Build::Skeleton version 0.1.0
+    This documentation refers to LCFG::Build::Skeleton version 0.3.0
 
 =head1 SYNOPSIS
 

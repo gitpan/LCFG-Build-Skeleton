@@ -1,6 +1,28 @@
-2011-02-17  SVN: new release
+2014-05-22  SVN: new release
 
-	* Release: 0.1.0
+	* Release: 0.3.0
+
+2014-05-22 15:46  squinney@INF.ED.AC.UK
+
+	* lcfg.yml, templates/specfile.tt: Updated specfile template to add
+	  a BuildRequires on lcfg-build-deps for lcfg components. Added the
+	  install stage removal of empty files. Also set the perl install
+	  location so that this should work out-of-the-box for more people
+	  writing perl components
+
+2014-02-27 15:36  squinney@INF.ED.AC.UK
+
+	* ChangeLog, lcfg.yml: LCFG-Build-Skeleton release: 0.2.0
+
+2014-02-27 15:33  squinney@INF.ED.AC.UK
+
+	* templates/specfile.tt: Do not include a build-dependency on
+	  /etc/rpm/macros.cmake in the specfile template, this was only
+	  necessary for SL5 and breaks builds on EL7 and newer Fedora
+
+2011-02-17 18:25  squinney@INF.ED.AC.UK
+
+	* ChangeLog, lcfg.yml: LCFG-Build-Skeleton release: 0.1.0
 
 2011-02-17 18:00  squinney@INF.ED.AC.UK
 

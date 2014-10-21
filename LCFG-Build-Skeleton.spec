@@ -1,11 +1,11 @@
 Name:           perl-LCFG-Build-Skeleton
 Summary:        Tools for generating new LCFG projects
-Version:        0.1.0
+Version:        0.3.0
 Release:        1
 Packager:       Stephen Quinney <squinney@inf.ed.ac.uk>
 License:        GPLv2
 Group:          LCFG/Development
-Source:         LCFG-Build-Skeleton-0.1.0.tar.gz
+Source:         LCFG-Build-Skeleton-0.3.0.tar.gz
 BuildArch:	noarch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:  perl(Module::Build)
@@ -57,8 +57,26 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Thu Feb 17 2011 SVN: new release
-- Release: 0.1.0
+* Thu May 22 2014 SVN: new release
+- Release: 0.3.0
+
+* Thu May 22 2014 15:46 squinney@INF.ED.AC.UK
+- lcfg.yml, templates/specfile.tt: Updated specfile template to add
+  a BuildRequires on lcfg-build-deps for lcfg components. Added the
+  install stage removal of empty files. Also set the perl install
+  location so that this should work out-of-the-box for more people
+  writing perl components
+
+* Thu Feb 27 2014 15:36 squinney@INF.ED.AC.UK
+- ChangeLog, lcfg.yml: LCFG-Build-Skeleton release: 0.2.0
+
+* Thu Feb 27 2014 15:33 squinney@INF.ED.AC.UK
+- templates/specfile.tt: Do not include a build-dependency on
+  /etc/rpm/macros.cmake in the specfile template, this was only
+  necessary for SL5 and breaks builds on EL7 and newer Fedora
+
+* Thu Feb 17 2011 18:25 squinney@INF.ED.AC.UK
+- ChangeLog, lcfg.yml: LCFG-Build-Skeleton release: 0.1.0
 
 * Thu Feb 17 2011 18:00 squinney@INF.ED.AC.UK
 - lib/LCFG/Build/Skeleton.pm.in: Email::Address->parse() returns a

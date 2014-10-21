@@ -9,17 +9,25 @@ Source:         @LCFG_TARNAME@
 BuildArch:	noarch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-[%- IF skel.gencmake == "yes" -%]
-BuildRequires:  cmake >= 2.6.0, /etc/rpm/macros.cmake, bash
-[% END -%]
+[%- IF skel.lcfg_component == "yes" -%]
+BuildRequires:  lcfg-build-deps
 
-[%- IF skel.lcfg_component == "yes" %]
-[%- IF skel.lang == "perl" %]
+[%- IF skel.lang == "perl" -%]
 BuildRequires:	perl(LCFG::Component)
 Requires:	perl(LCFG::Component)
 [% ELSE %]
 Requires:	lcfg-ngeneric
 [% END -%]
+
+[% ELSE -%]
+
+[%- IF skel.gencmake == "yes" -%]
+BuildRequires:  cmake >= 2.6.0, bash
+[%- IF skel.lang == "perl" %]
+BuildRequires:  perl
+[% END -%]
+[% END -%]
+
 [% END -%]
 
 [%- IF skel.lang == "perl" %]
@@ -42,13 +50,16 @@ Requires:	lcfg-utils, lcfg-om
 
 %build
 [% IF skel.gencmake == "yes" %]
-%cmake
+%cmake -DPERL_INSTALLDIRS:STRING=vendor
 [% END %]
 make
 
 %install
 rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT
+
+# Remove empty files (because pod2man on SL6 wrongly creates empty man pages)
+find $RPM_BUILD_ROOT -type f -empty -print0 | xargs --null --no-run-if-empty rm
 
 %{_fixperms} $RPM_BUILD_ROOT/*
 
