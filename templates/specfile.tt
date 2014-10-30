@@ -65,7 +65,7 @@ find $RPM_BUILD_ROOT -type f -empty -print0 | xargs --null --no-run-if-empty rm
 
 [% IF skel.lcfg_component == "yes" AND skel.restart == "yes" %]
 %post
-if [ -x "@LCFGCOMP@/@LCFG_NAME@" ] && [ -f "@LCFGTMP@/@LCFG_NAME@.run" ] ; then
+if [ $1 -eq 2 ] && @LCFGOM@ @LCFG_NAME@ isstarted -q; then
   echo reconfiguring @LCFG_NAME@ component
   /usr/sbin/daemon @LCFGOM@ @LCFG_NAME@ configure
 fi
@@ -74,7 +74,7 @@ exit 0
 
 [% IF skel.lcfg_component == "yes" %]
 %postun
-[ $1 = 0 ] && rm -f @LCFGROTATED@/@LCFG_FULLNAME@
+[ $1 -eq 0 ] && rm -f @LCFGROTATED@/@LCFG_FULLNAME@
 exit 0
 [% END %]
 

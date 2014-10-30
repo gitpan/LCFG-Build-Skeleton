@@ -7,7 +7,7 @@ build:
   gencmake: 0
   remove_input_after_translate: 1
   translate_before_pack: 1
-date: 22/05/14 15:47:04
+date: 30/10/14 14:00:47
 license: GPLv2
 name: LCFG-Build-Skeleton
 orgident: org.lcfg
@@ -22,4 +22,4 @@ translate:
 vcs: 
   genchangelog: 1
   logname: ChangeLog
-version: 0.3.0
+version: 0.3.1

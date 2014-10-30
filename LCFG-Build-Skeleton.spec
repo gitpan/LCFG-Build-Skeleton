@@ -1,11 +1,11 @@
 Name:           perl-LCFG-Build-Skeleton
 Summary:        Tools for generating new LCFG projects
-Version:        0.3.0
+Version:        0.3.1
 Release:        1
 Packager:       Stephen Quinney <squinney@inf.ed.ac.uk>
 License:        GPLv2
 Group:          LCFG/Development
-Source:         LCFG-Build-Skeleton-0.3.0.tar.gz
+Source:         LCFG-Build-Skeleton-0.3.1.tar.gz
 BuildArch:	noarch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:  perl(Module::Build)
@@ -57,8 +57,15 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Thu May 22 2014 SVN: new release
-- Release: 0.3.0
+* Thu Oct 30 2014 SVN: new release
+- Release: 0.3.1
+
+* Thu Oct 30 2014 14:00 squinney@INF.ED.AC.UK
+- templates/specfile.tt: updated the template post-install script
+  to use the new isstarted om method
+
+* Thu May 22 2014 15:47 squinney@INF.ED.AC.UK
+- ChangeLog, lcfg.yml: LCFG-Build-Skeleton release: 0.3.0
 
 * Thu May 22 2014 15:46 squinney@INF.ED.AC.UK
 - lcfg.yml, templates/specfile.tt: Updated specfile template to add

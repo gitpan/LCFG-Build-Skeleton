@@ -1,6 +1,15 @@
-2014-05-22  SVN: new release
+2014-10-30  SVN: new release
 
-	* Release: 0.3.0
+	* Release: 0.3.1
+
+2014-10-30 14:00  squinney@INF.ED.AC.UK
+
+	* templates/specfile.tt: updated the template post-install script
+	  to use the new isstarted om method
+
+2014-05-22 15:47  squinney@INF.ED.AC.UK
+
+	* ChangeLog, lcfg.yml: LCFG-Build-Skeleton release: 0.3.0
 
 2014-05-22 15:46  squinney@INF.ED.AC.UK
 
