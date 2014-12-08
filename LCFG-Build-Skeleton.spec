@@ -1,11 +1,11 @@
 Name:           perl-LCFG-Build-Skeleton
 Summary:        Tools for generating new LCFG projects
-Version:        0.3.1
+Version:        0.4.1
 Release:        1
 Packager:       Stephen Quinney <squinney@inf.ed.ac.uk>
 License:        GPLv2
 Group:          LCFG/Development
-Source:         LCFG-Build-Skeleton-0.3.1.tar.gz
+Source:         LCFG-Build-Skeleton-0.4.1.tar.gz
 BuildArch:	noarch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:  perl(Module::Build)
@@ -57,8 +57,34 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Thu Oct 30 2014 SVN: new release
-- Release: 0.3.1
+* Mon Dec 08 2014 SVN: new release
+- Release: 0.4.1
+
+* Mon Dec 08 2014 16:14 squinney@INF.ED.AC.UK
+- lcfg.yml: Noted EL7 support
+
+* Mon Dec 08 2014 16:13 squinney@INF.ED.AC.UK
+- ChangeLog, lcfg.yml: LCFG-Build-Skeleton release: 0.4.0
+
+* Mon Dec 08 2014 16:08 squinney@INF.ED.AC.UK
+- lib/LCFG/Build/Skeleton.pm.in, templates/README.perl.tt: Ensure
+  the perl lib directory is not empty when the project is not for
+  an lcfg component
+
+* Mon Dec 08 2014 16:03 squinney@INF.ED.AC.UK
+- lib/LCFG/Build/Skeleton.pm.in: fixed perl module suffix
+
+* Mon Dec 08 2014 16:01 squinney@INF.ED.AC.UK
+- lib/LCFG/Build/Skeleton.pm.in, templates/perlcomp_cmake.tt: Perl
+  components with modules need a cmake file
+
+* Mon Dec 08 2014 15:56 squinney@INF.ED.AC.UK
+- lib/LCFG/Build/Skeleton.pm.in, templates/COMPONENT.pl.tt,
+  templates/COMPONENT.pm.tt, templates/specfile.tt: Reworked how
+  Perl components are generated so that there is a separate module
+
+* Thu Oct 30 2014 14:00 squinney@INF.ED.AC.UK
+- ChangeLog, lcfg.yml: LCFG-Build-Skeleton release: 0.3.1
 
 * Thu Oct 30 2014 14:00 squinney@INF.ED.AC.UK
 - templates/specfile.tt: updated the template post-install script

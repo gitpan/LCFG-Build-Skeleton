@@ -2,13 +2,13 @@ package LCFG::Build::Skeleton;    # -*-perl-*-
 use strict;
 use warnings;
 
-# $Id: Skeleton.pm.in 15909 2011-02-17 18:00:05Z squinney@INF.ED.AC.UK $
+# $Id: Skeleton.pm.in 26933 2014-12-08 16:08:31Z squinney@INF.ED.AC.UK $
 # $Source: /var/cvs/dice/LCFG-Build-Skeleton/lib/LCFG/Build/Skeleton.pm.in,v $
-# $Revision: 15909 $
-# $HeadURL: https://svn.lcfg.org/svn/source/tags/LCFG-Build-Skeleton/LCFG_Build_Skeleton_0_3_1/lib/LCFG/Build/Skeleton.pm.in $
-# $Date: 2011-02-17 18:00:05 +0000 (Thu, 17 Feb 2011) $
+# $Revision: 26933 $
+# $HeadURL: https://svn.lcfg.org/svn/source/tags/LCFG-Build-Skeleton/LCFG_Build_Skeleton_0_4_1/lib/LCFG/Build/Skeleton.pm.in $
+# $Date: 2014-12-08 16:08:31 +0000 (Mon, 08 Dec 2014) $
 
-our $VERSION = '0.3.1';
+our $VERSION = '0.4.1';
 
 use Email::Address ();
 use Email::Valid   ();
@@ -466,6 +466,29 @@ sub create_package {
         'README.tt'       => ['README'],
     );
 
+    # Create some essential directories if the project is perl based
+
+    if ( $self->lang eq 'perl' ) {
+        my $libdir = File::Spec->catdir( $tempdir, 'lib' );
+        mkdir $libdir
+            or die "Could not Perl library directory, $libdir: $!\n";
+
+        if ( $self->lcfg_component eq 'yes' ) {
+            my $compdir =
+                File::Spec->catdir( $tempdir, 'lib', 'LCFG', 'Component' );
+            eval { File::Path::make_path($compdir) };
+            if ($@) {
+                die "Failed to create LCFG component perl directory: $@\n";
+            }
+        } else {
+            $files{'README.perl.tt'} = [ 'lib', 'README' ];            
+        }
+
+        my $testdir = File::Spec->catdir( $tempdir, 't' );
+        mkdir $testdir
+            or die "Could not create tests directory, $testdir: $!\n";
+    }
+
     my @exefiles;
 
     if ( $self->lcfg_component eq 'yes' ) {
@@ -473,6 +496,8 @@ sub create_package {
 
         if ( $self->lang eq 'perl' ) {
             $files{'COMPONENT.pl.tt'} = ["$comp.cin"];
+            $files{'COMPONENT.pm.tt'} = ['lib','LCFG','Component',"\u$comp.pm.cin"];
+            $files{'perlcomp_cmake.tt'} = ['CMakeLists.txt'];
         }
         else {
             $files{'COMPONENT.sh.tt'} = ["$comp.cin"];
@@ -515,12 +540,6 @@ sub create_package {
         chmod 0755, $path;
     }
 
-    if ( $self->lang eq 'perl' ) {
-        my $testdir = File::Spec->catdir( $tempdir, 't' );
-        mkdir $testdir
-            or die "Could not create tests directory, $testdir: $!\n";
-    }
-
     eval {
         my $vcsmodule = 'LCFG::Build::VCS::' . $self->vcs;
 
@@ -557,7 +576,7 @@ __END__
 
 =head1 VERSION
 
-    This documentation refers to LCFG::Build::Skeleton version 0.3.1
+    This documentation refers to LCFG::Build::Skeleton version 0.4.1
 
 =head1 SYNOPSIS
 
@@ -778,7 +797,7 @@ This is the list of platforms on which we have tested this
 software. We expect this software to work on any Unix-like platform
 which is supported by Perl.
 
-FedoraCore5, Fedora6, ScientificLinux5
+ScientificLinux6, EnterpriseLinux7, MacOSX
 
 =head1 BUGS AND LIMITATIONS
 

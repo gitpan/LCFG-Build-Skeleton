@@ -5,10 +5,10 @@ use warnings;
 # $Id: lcfg-skeleton.in 3447 2009-03-11 13:26:44Z squinney@INF.ED.AC.UK $
 # $Source: /var/cvs/dice/LCFG-Build-Skeleton/bin/lcfg-skeleton.in,v $
 # $Revision: 3447 $
-# $HeadURL: https://svn.lcfg.org/svn/source/tags/LCFG-Build-Skeleton/LCFG_Build_Skeleton_0_3_1/bin/lcfg-skeleton.in $
+# $HeadURL: https://svn.lcfg.org/svn/source/tags/LCFG-Build-Skeleton/LCFG_Build_Skeleton_0_4_1/bin/lcfg-skeleton.in $
 # $Date: 2009-03-11 13:26:44 +0000 (Wed, 11 Mar 2009) $
 
-our $VERSION = '0.3.1';
+our $VERSION = '0.4.1';
 
 use LCFG::Build::Skeleton;
 
@@ -31,7 +31,7 @@ __END__
 
 =head1 VERSION
 
-This documentation refers to lcfg-skeleton version 0.3.1
+This documentation refers to lcfg-skeleton version 0.4.1
 
 =head1 USAGE
 
@@ -232,7 +232,7 @@ This is the list of platforms on which we have tested this
 software. We expect this software to work on any Unix-like platform
 which is supported by Perl.
 
-FedoraCore5, Fedora6, ScientificLinux5
+ScientificLinux6, EnterpriseLinux7, MacOSX
 
 =head1 BUGS AND LIMITATIONS
 

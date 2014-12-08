@@ -83,10 +83,17 @@ exit 0
 %doc ChangeLog README
 [% IF skel.lcfg_component == "yes" %]
 %doc @LCFGMAN@/man@MANSECT@/*
-%doc @LCFGPOD@/@LCFG_NAME@.pod
+%doc @LCFGPOD@/*.pod
 @LCFGCOMP@/@LCFG_NAME@
 @LCFGDATA@/@LCFG_NAME@
 @LCFGCLIENTDEF@/@LCFG_NAME@-@LCFG_SCHEMA@.def
+[% END %]
+[%- IF skel.lang == "perl" -%]
+[% IF skel.lcfg_component == "yes" %]
+%{perl_vendorlib}/LCFG/Component/*
+[% ELSE %]
+%{perl_vendorlib}/*
+[% END %]
 [% END %]
 
 [% IF skel.lcfg_component =="yes" %]

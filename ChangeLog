@@ -1,6 +1,39 @@
-2014-10-30  SVN: new release
+2014-12-08  SVN: new release
 
-	* Release: 0.3.1
+	* Release: 0.4.1
+
+2014-12-08 16:14  squinney@INF.ED.AC.UK
+
+	* lcfg.yml: Noted EL7 support
+
+2014-12-08 16:13  squinney@INF.ED.AC.UK
+
+	* ChangeLog, lcfg.yml: LCFG-Build-Skeleton release: 0.4.0
+
+2014-12-08 16:08  squinney@INF.ED.AC.UK
+
+	* lib/LCFG/Build/Skeleton.pm.in, templates/README.perl.tt: Ensure
+	  the perl lib directory is not empty when the project is not for
+	  an lcfg component
+
+2014-12-08 16:03  squinney@INF.ED.AC.UK
+
+	* lib/LCFG/Build/Skeleton.pm.in: fixed perl module suffix
+
+2014-12-08 16:01  squinney@INF.ED.AC.UK
+
+	* lib/LCFG/Build/Skeleton.pm.in, templates/perlcomp_cmake.tt: Perl
+	  components with modules need a cmake file
+
+2014-12-08 15:56  squinney@INF.ED.AC.UK
+
+	* lib/LCFG/Build/Skeleton.pm.in, templates/COMPONENT.pl.tt,
+	  templates/COMPONENT.pm.tt, templates/specfile.tt: Reworked how
+	  Perl components are generated so that there is a separate module
+
+2014-10-30 14:00  squinney@INF.ED.AC.UK
+
+	* ChangeLog, lcfg.yml: LCFG-Build-Skeleton release: 0.3.1
 
 2014-10-30 14:00  squinney@INF.ED.AC.UK
 
